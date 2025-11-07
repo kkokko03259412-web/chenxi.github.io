@@ -3,7 +3,7 @@ name: deploy-book
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: {}   
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -33,12 +33,9 @@ jobs:
 
       - name: Build the book
         run: |
-          jupyter-book build . --quiet
-          echo "List repo root:"
-          ls -la
+          jupyter-book build .
           echo "List _build:"
           ls -la _build || true
-          # 若没有产物，提前失败，便于定位
           test -d _build/html || (echo "ERROR: _build/html not produced"; exit 1)
 
       - name: Upload artifact
